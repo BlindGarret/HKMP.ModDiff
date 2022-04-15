@@ -123,7 +123,7 @@
     <Compile Include="Services\ClientNetService.cs" />
     <Compile Include="ModInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <SourceFiles Include="$(TargetDir)$(AssemblyName).dll;$(TargetDir)$(AssemblyName).pdb;$(TargetDir)$(AssemblyName).xml;$(TargetDir)Newtonsoft.Json.dll" />
     <Dest Include="$(References)/Mods/Hkmp.ModDiff" />
   </ItemGroup>
