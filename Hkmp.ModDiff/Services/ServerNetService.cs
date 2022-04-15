@@ -32,10 +32,12 @@ namespace Hkmp.ModDiff.Services
             var receiver = serverApi.NetServer.GetNetworkReceiver<ModListPacketId>(addon, (_) => new ModListPacket());
             receiver.RegisterPacketHandler<ModListPacket>(
                 ModListPacketId.ModListClientData, (id, data) => HandleModlist(id, data, serverApi));
-
+            
             _modListWatcher = new FileSystemWatcher(DllDirectory ?? string.Empty);
             _modListWatcher.IncludeSubdirectories = false;
             _modListWatcher.Changed += OnFileChanged;
+            _modListWatcher.Created += OnFileChanged;
+            _modListWatcher.Renamed += OnFileChanged;
             _modListWatcher.EnableRaisingEvents = true;
             HandleConfigChange();
             HandleModlistChange();
@@ -60,7 +62,7 @@ namespace Hkmp.ModDiff.Services
                 return;
             }
 
-            switch (e.Name)
+            switch (Path.GetFileName(e.Name))
             {
                 case ModlistFileName:
                     HandleModlistChange();

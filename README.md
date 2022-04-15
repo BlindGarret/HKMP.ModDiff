@@ -32,10 +32,29 @@ This addon requires the HK-Modding API, and HKMP to be installed. The referenced
 
 ### Manual installation
 
-Get the latest HKMP.ModDiff.dll from the current release and add it to your HKMP mod folder in 
+#### Client Installation
+
+Get the latest HKMP.ModDiff.zip from the current release and add sll of its contents to a mod folder in your mods directory like
 ``` sh
-<Path to Hollow Knight>/hollow_knight_Data/Managed/Mods/HKMP
+<Path to Hollow Knight>/hollow_knight_Data/Managed/Mods/HKMP.ModdDiff
 ```
+
+#### Server Installation
+
+If you are planning to run your server through the Hollow Knight game the client installation is sufficient. If however you want to run it in standalone EXE mode, drop the contents of HKMP.ModDiff.zip next to your server exe. Then boot up Hollow Knight and copy over the modlist.json it generates in your mod directory into your server directory as well. This json acts as the standard all people attempting to connect to the server must abide by.
+
+
+## Configuration
+All configurations are hot-reload ready. If you make a modification to the config file the server will attempt to hot reload the changes in real time.
+
+### moddiff_config.json
+
+Upon first starting up a file "moddiff_config.json" will be generated inside the server/mod directory. This is a simple JSON file which can be modified in real time to update server settings.
+
+| Configuration Name  | Description                                                                                                                                                                                                                                           | Data type | Default |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|---------|
+| MismatchOnExtraMods | Flag for whether the addon considers extra mods on a client to be a mismatch. If turned on it will go into "strict" mode about mod matching.                                                                                                          | Boolean   | False   |
+| KickOnMistmatch     | Flag for whether the server will auto-kick client who connect with a mismatched mod list. Currently the kick will happen about 500ms after the connection in order to not trap the connection in a weird state and leave behind ghosts of the player. | Boolean   | False   |
 
 <!-- GETTING STARTED -->
 ## Development

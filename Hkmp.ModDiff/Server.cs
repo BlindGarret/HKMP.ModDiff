@@ -20,7 +20,7 @@ namespace Hkmp.ModDiff
             var configPath = Path.Combine(dllDir ?? string.Empty, "moddiff_config.json");
             if (!File.Exists(configPath))
             {
-                File.WriteAllText(configPath, JsonConvert.SerializeObject(new Configuration()));
+                File.WriteAllText(configPath, JsonConvert.SerializeObject(new Configuration(), Formatting.Indented));
                 Logger.Info(this, "Created configuration file");
             }
 

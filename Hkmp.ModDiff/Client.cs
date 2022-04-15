@@ -25,7 +25,7 @@ namespace Hkmp.ModDiff
                 Version = m.GetVersion()
             }).ToList();
             var dllDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            File.WriteAllText(Path.Combine(dllDir ?? string.Empty, "modlist.json"), JsonConvert.SerializeObject(mods));
+            File.WriteAllText(Path.Combine(dllDir ?? string.Empty, "modlist.json"), JsonConvert.SerializeObject(mods, Formatting.Indented));
             Logger.Info(this, "modlist.json created");
 
             // ReSharper disable once ObjectCreationAsStatement
