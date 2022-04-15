@@ -1,5 +1,11 @@
-﻿using Hkmp.Api.Client;
+﻿using System.IO;
+using System.Linq;
+using System.Reflection;
+using Hkmp.Api.Client;
+using Hkmp.ModDiff.Models;
 using Hkmp.ModDiff.Services;
+using Modding;
+using Newtonsoft.Json;
 
 namespace Hkmp.ModDiff
 {
@@ -12,6 +18,16 @@ namespace Hkmp.ModDiff
         public override void Initialize(IClientApi clientApi)
         {
             Logger.Info(this, "Client initialized");
+
+            var mods = ModHooks.GetAllMods(true).Select(m => new ModVersion
+            {
+                Name = m.GetName(),
+                Version = m.GetVersion()
+            }).ToList();
+            var dllDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            File.WriteAllText(Path.Combine(dllDir ?? string.Empty, "modlist.json"), JsonConvert.SerializeObject(mods));
+            Logger.Info(this, "modlist.json created");
+
             // ReSharper disable once ObjectCreationAsStatement
             new ClientNetService(Logger, this, clientApi);
         }

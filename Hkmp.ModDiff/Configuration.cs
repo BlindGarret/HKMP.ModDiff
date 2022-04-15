@@ -8,13 +8,13 @@ namespace Hkmp.ModDiff
     public class Configuration
     {
         /// <summary>
-        /// The type of match to check the mod list with
+        /// Whether the system should consider extra mods a mismatch
         /// </summary>
-        public MatchType MatchType { get; set; }
+        public bool MismatchOnExtraMods { get; set; }
 
         /// <summary>
         /// Whether the client should be kicked after a mismatch
         /// </summary>
-        public BooleanEnum KickOnMistmatch { get; set; }
+        public bool KickOnMistmatch { get; set; }
     }
 }
