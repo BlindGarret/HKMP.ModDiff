@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Hkmp.Api.Client;
+using Hkmp.ModDiff.Extensions;
 using Hkmp.ModDiff.Models;
 using Hkmp.ModDiff.Packets;
 using Modding;
@@ -22,7 +23,7 @@ namespace Hkmp.ModDiff.Services
                         InstalledMods = ModHooks.GetAllMods(true).Select(m => new ModVersion
                         {
                             Name = m.GetName(),
-                            Version = m.GetVersion()
+                            Version = m.GetVersion().UnifyVersionString()
                         }).ToList(),
                         PlayerName = clientApi.ClientManager.Username
                     }

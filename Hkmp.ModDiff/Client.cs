@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using Hkmp.Api.Client;
+using Hkmp.ModDiff.Extensions;
 using Hkmp.ModDiff.Models;
 using Hkmp.ModDiff.Services;
 using Modding;
@@ -22,7 +23,7 @@ namespace Hkmp.ModDiff
             var mods = ModHooks.GetAllMods(true).Select(m => new ModVersion
             {
                 Name = m.GetName(),
-                Version = m.GetVersion()
+                Version = m.GetVersion().UnifyVersionString()
             }).ToList();
             var dllDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             File.WriteAllText(Path.Combine(dllDir ?? string.Empty, "modlist.json"), JsonConvert.SerializeObject(mods, Formatting.Indented));

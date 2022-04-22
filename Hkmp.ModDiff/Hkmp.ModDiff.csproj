@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HkMod.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Client.cs" />

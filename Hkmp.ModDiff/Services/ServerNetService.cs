@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Hkmp.Api.Server;
+using Hkmp.ModDiff.Extensions;
 using Hkmp.ModDiff.Models;
 using Hkmp.ModDiff.Packets;
 using Hkmp.Networking.Packet.Data;
@@ -196,7 +197,7 @@ namespace Hkmp.ModDiff.Services
                 api.ServerManager.SendMessage(player, "Extra Mods:");
                 foreach (var mod in info.ExtraMods)
                 {
-                    api.ServerManager.SendMessage(player, $"- {mod.Name} @ {mod.Version}");
+                    api.ServerManager.SendMessage(player, $"- {mod.Name} @ {mod.Version.ToCulturalDecimalSeperatorForVersions()}");
                 }
             }
 
@@ -205,7 +206,7 @@ namespace Hkmp.ModDiff.Services
                 api.ServerManager.SendMessage(player, "Missing Mods:");
                 foreach (var mod in info.MissingMods)
                 {
-                    api.ServerManager.SendMessage(player, $"- {mod.Name} @ {mod.Version}");
+                    api.ServerManager.SendMessage(player, $"- {mod.Name} @ {mod.Version.ToCulturalDecimalSeperatorForVersions()}");
                 }
             }
 
@@ -214,7 +215,7 @@ namespace Hkmp.ModDiff.Services
                 api.ServerManager.SendMessage(player, "Wrong Versions:");
                 foreach (var mod in info.WrongVersions)
                 {
-                    api.ServerManager.SendMessage(player, $"- {mod.Name} @ {mod.Version} expected {mod.Expected}");
+                    api.ServerManager.SendMessage(player, $"- {mod.Name} @ {mod.Version.ToCulturalDecimalSeperatorForVersions()} expected {mod.Expected.ToCulturalDecimalSeperatorForVersions()}");
                 }
             }
         }
