@@ -14,14 +14,14 @@ namespace Hkmp.ModDiff
         /// <inheritdoc />
         public override void Initialize(IServerApi serverApi)
         {
-            Logger.Info(this, "Server initialized");
+            Logger.Info("Server initialized");
 
             var dllDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var configPath = Path.Combine(dllDir ?? string.Empty, "moddiff_config.json");
             if (!File.Exists(configPath))
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(new Configuration(), Formatting.Indented));
-                Logger.Info(this, "Created configuration file");
+                Logger.Info("Created configuration file");
             }
 
             // ReSharper disable once ObjectCreationAsStatement

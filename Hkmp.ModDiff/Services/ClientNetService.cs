@@ -4,6 +4,7 @@ using Hkmp.ModDiff.Extensions;
 using Hkmp.ModDiff.Models;
 using Hkmp.ModDiff.Packets;
 using Modding;
+using ILogger = Hkmp.Logging.ILogger;
 
 namespace Hkmp.ModDiff.Services
 {
@@ -14,7 +15,7 @@ namespace Hkmp.ModDiff.Services
             var sender = clientApi.NetClient.GetNetworkSender<ModListPacketId>(addon);
             clientApi.ClientManager.ConnectEvent += () =>
             {
-                logger.Info(this, "Player connected, sending modlist to server");
+                logger.Info("Player connected, sending modlist to server");
 
                 sender.SendSingleData(ModListPacketId.ModListClientData, new ModListPacket
                 {
