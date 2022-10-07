@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Hkmp.Api.Server;
+using Hkmp.Logging;
 using Hkmp.ModDiff.Extensions;
 using Hkmp.ModDiff.Models;
 using Hkmp.ModDiff.Packets;
@@ -59,7 +60,7 @@ namespace Hkmp.ModDiff.Services
             if (attempts > maxAttempts)
             {
                 // We'll call this unreadable
-                _logger.Warn(this, $"Was unable to read locked file: {e.Name}");
+                _logger.Warn($"Was unable to read locked file: {e.Name}");
                 return;
             }
 
@@ -78,7 +79,7 @@ namespace Hkmp.ModDiff.Services
         {
             if (!File.Exists(Path.Combine(DllDirectory, ModlistFileName)))
             {
-                _logger.Warn(this, "No Modlist Provided.");
+                _logger.Warn("No Modlist Provided.");
                 return;
             }
 
@@ -89,14 +90,14 @@ namespace Hkmp.ModDiff.Services
             }
 
             _knownMods = JsonConvert.DeserializeObject<List<ModVersion>>(fileContents);
-            _logger.Info(this, "ModList Updated");
+            _logger.Info("ModList Updated");
         }
 
         private void HandleConfigChange()
         {
             if (!File.Exists(Path.Combine(DllDirectory, ConfigFileName)))
             {
-                _logger.Warn(this, "No Configuration Provided.");
+                _logger.Warn("No Configuration Provided.");
                 return;
             }
 
@@ -107,7 +108,7 @@ namespace Hkmp.ModDiff.Services
             }
 
             _configuration = JsonConvert.DeserializeObject<Configuration>(fileContents);
-            _logger.Info(this, "Configuration Updated");
+            _logger.Info("Configuration Updated");
         }
 
         private void HandleModlist(ushort id, ModListPacket data, IServerApi serverApi)
@@ -118,8 +119,7 @@ namespace Hkmp.ModDiff.Services
 
             var isMatch = CheckIsMatch(modInfo, _configuration.MismatchOnExtraMods);
 
-            _logger.Info(this,
-                !isMatch
+            _logger.Info(!isMatch
                     ? $"{data.PlayerInfo.PlayerName}'s mods DO NOT match!"
                     : $"{data.PlayerInfo.PlayerName} joined with matching mods!");
 
@@ -232,7 +232,7 @@ namespace Hkmp.ModDiff.Services
             }
             catch (Exception)
             {
-                _logger.Error(this, $"Unable to read text from file {path}. File is locked.");
+                _logger.Error($"Unable to read text from file {path}. File is locked.");
                 return null;
             }
         }

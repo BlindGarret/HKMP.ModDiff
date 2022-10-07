@@ -18,7 +18,7 @@ namespace Hkmp.ModDiff
         /// <inheritdoc />
         public override void Initialize(IClientApi clientApi)
         {
-            Logger.Info(this, "Client initialized");
+            Logger.Info("Client initialized");
 
             var mods = ModHooks.GetAllMods(true).Select(m => new ModVersion
             {
@@ -27,7 +27,7 @@ namespace Hkmp.ModDiff
             }).ToList();
             var dllDir = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             File.WriteAllText(Path.Combine(dllDir ?? string.Empty, "modlist.json"), JsonConvert.SerializeObject(mods, Formatting.Indented));
-            Logger.Info(this, "modlist.json created");
+            Logger.Info("modlist.json created");
 
             // ReSharper disable once ObjectCreationAsStatement
             new ClientNetService(Logger, this, clientApi);
